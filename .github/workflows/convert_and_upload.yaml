@@ -1,0 +1,39 @@
+name: Convert and Upload
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+jobs:
+  convert_and_upload:
+    name: Convert and Upload
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11' 
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r ./requirements.txt
+    - name: Download
+      env:
+        URL: ${{ secrets.URL }}
+        PROVIDER: ${{ secrets.PROVIDER }}
+        OWNER: ${{ secrets.OWNER }}
+      run: |
+        wget ${URL} -O ${PROVIDER}_${OWNER}_ALL.yaml
+    - name: Convert
+      env:
+        PROVIDER: ${{ secrets.PROVIDER }}
+        OWNER: ${{ secrets.OWNER }}
+      run: |
+        python ./convert.py ${PROVIDER} ${OWNER}
+    - name: Upload to server
+      env:
+        HOST: ${{ secrets.HOST }}
+        DESTINATION: ${{ secrets.DESTINATION }}
+      run: |
+        cd ./conversion
+        find ./ -name "*.yaml" -exec curl -T {} ${HOST}${DESTINATION}/{} \;

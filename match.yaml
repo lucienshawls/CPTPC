@@ -1,0 +1,75 @@
+areas:
+  - name: AU
+    include: true
+    with: 
+      - 澳
+    without:
+  - name: CA
+    include: true
+    with:
+      - 加
+    without:
+      - 新
+      - 班
+  - name: FR
+    include: true
+    with:
+      - 法
+    without:
+  - name: GB
+    include: true
+    with:
+      - 英
+    without:
+  - name: HK
+    include: true
+    with:
+      - 港
+    without:
+  - name: IE
+    include: true
+    with:
+      - 爱
+    without:
+  - name: IN
+    include: true
+    with:
+      - 印
+    without:
+  - name: JP
+    include: true
+    with:
+      - 日
+    without:
+  - name: KR
+    include: true
+    with:
+      - 韩
+    without:
+  - name: RU
+    include: true
+    with:
+      - 俄
+    without:
+  - name: SG
+    include: true
+    with:
+      - 新
+    without:
+  - name: TW
+    include: true
+    with:
+      - 台
+    without:
+  - name: US
+    include: true
+    with:
+      - 美
+    without:
+global:
+  include: true
+  with:
+  indispensable: 
+  without:
+    - IPV6
+    - ipv6
